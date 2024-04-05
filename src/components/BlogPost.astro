@@ -1,0 +1,16 @@
+---
+const { post } = Astro.props;
+---
+
+<article
+  class="mt-20 max-w-5xl mx-auto border border-gray-300 bg-slate-200 dark:bg-gray-700 rounded-xl p-4 my-6"
+>
+  <h1
+    class="font-ibm text-md md:text-xl lg:text-2xl text-center"
+    set:html={post.title.rendered}
+  />
+  <!-- <Fragment set:html={post.content.rendered} /> -->
+  <div class="flex flex-col items-center">
+    <Fragment set:html={post.content.rendered} />
+  </div>
+</article>

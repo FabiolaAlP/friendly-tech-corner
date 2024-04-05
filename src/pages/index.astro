@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BlogList from "../components/BlogList.astro";
+import { format } from "date-fns";
+const title = "Home Page";
+// const res = await fetch(import.meta.env.WP_URL);
+// const posts = await res.json();
+// console.log(posts);
+const headers = { "Content-Type": "application/json" };
+const LATEST_POSTS = `{
+  posts(first: 5, where: {orderby: {field: DATE, order: DESC}}) {
+    nodes {
+      slug
+      title
+      author {
+        node {
+          name
+        }
+      }
+      date
+      excerpt
+      tags {
+        edges {
+          node {
+            name
+          }
+        }
+      }
+      }
+    }
+  }`;
+const getPosts = async () => {
+  try {
+    const res = await fetch(import.meta.env.WP_GRAPHQL, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ query: LATEST_POSTS }),
+    });
+    const resData = await res.json();
+    return resData?.data?.posts?.nodes ?? [];
+  } catch (error) {
+    console.error("Error fetching posts: ", error);
+  }
+};
+const posts = await getPosts();
+// console.log(posts);
+// <Fragment set:html={post.excerpt} />;
+---
+
+<Layout title={title}>
+  <BlogList posts={posts} />
+</Layout>
