@@ -3,13 +3,12 @@ const { post } = Astro.props;
 ---
 
 <article
-  class="mt-20 max-w-5xl mx-auto border border-gray-300 bg-slate-200 dark:bg-gun-metal rounded-xl p-4 my-6"
+  class="mt-20 max-w-5xl mx-auto bg-light-bg-alt text-light-text dark:bg-dark-bg-alt dark:text-dark-text shadow-lg rounded-xl p-4 my-6"
 >
-  <h1
-    class="font-ibm text-md md:text-xl lg:text-2xl text-center"
+  <h2
+    class="font-ibm font-bold text-md md:text-xl lg:text-2xl text-center text-light-primary dark:text-dark-primary"
     set:html={post.title.rendered}
   />
-  <!-- <Fragment set:html={post.content.rendered} /> -->
   <div class="flex flex-col items-center">
     <Fragment set:html={post.content.rendered} />
   </div>
