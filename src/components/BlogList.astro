@@ -23,20 +23,23 @@ const getTagName = (tags) => {
       <section class="container mx-auto shadow-lg bg-light-bg-alt text-light-text dark:bg-dark-bg-alt dark:text-dark-text rounded-xl p-4 my-10">
         <h2 class="my-4">
           <a
-            class="font-ibm hover:underline dark:text-white text-xl md:text-2xl lg:text-3xl"
+            class="font-ibm hover:underline text-light-text dark:text-dark-text text-xl md:text-2xl lg:text-3xl"
             href={`/posts/${post.slug}/`}
             set:html={post.title}
           />
         </h2>
         <span
-          class="block my-4 dark:text-white"
+          class="block my-4 text-light-text dark:text-dark-text"
           set:html={`By: ` + post.author.node.name}
         />
         <span
-          class="block my-4 dark:text-white"
+          class="block my-4 text-light-text dark:text-dark-text"
           set:html={format(post.date, "dd MMM yyyy")}
         />
-        <div class="my-5 dark:text-white" set:html={post.excerpt} />
+        <div
+          class="my-5 text-light-text dark:text-dark-text"
+          set:html={post.excerpt}
+        />
         <span
           class="block text-left sm:text-right"
           set:html={`tags: ` + getTagName(post.tags.edges)}

@@ -1,7 +1,5 @@
 ---
 const { post } = Astro.props;
-//  set:html={post.title.rendered}
-// <Fragment set:html={post.content.rendered} />;
 ---
 
 <article
@@ -11,20 +9,28 @@ const { post } = Astro.props;
     class="font-ibm font-bold text-balance text-xl md:text-2xl lg:text-3xl text-center text-light-primary dark:text-dark-primary my-10"
     set:html={post.title}
   />
-
-  <section
-    class="flex flex-col items-center justify-center p-4 text-lg md:text-xl lg:text-2xl"
-  >
-    <div class="text-lg md:text-2xl mx-auto" set:html={post.content} />
+  <!-- text-lg md:text-xl lg:text-2xl -->
+  <section class="flex flex-col items-center justify-center p-4">
+    <!-- <div class="text-lg md:text-2xl mx-auto" set:html={post.content} /> -->
+    <div
+      class="text-lg md:text-xl lg:text-2xl mx-auto"
+      id="postContent"
+      set:html={post.content}
+    />
   </section>
 </article>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const iframe = document.querySelector("article iframe");
-    if (iframe) {
-      iframe.style.width = "";
-      iframe.style.height = "";
-      iframe.classList.add("aspect-w-16", "aspect-h-9", "w-full", "h-full");
-    }
+    const postContentDiv = document.getElementById("postContent");
+
+    const iframes = postContentDiv.querySelectorAll("iframe");
+    const images = postContentDiv.querySelectorAll("img");
+    images.forEach((img) => {
+      img.classList.add("w-full", "h-auto");
+    });
+    iframes.forEach((iframe) => {
+      iframe.classList.add("w-full", "max-w-full");
+      // iframe.style.maxWidth = "100%";
+    });
   });
 </script>
