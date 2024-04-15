@@ -25,8 +25,13 @@ const { post } = Astro.props;
 
     const iframes = postContentDiv.querySelectorAll("iframe");
     const images = postContentDiv.querySelectorAll("img");
+    const paragraphs = postContentDiv.querySelectorAll("p");
+    paragraphs.forEach((p) => {
+      p.classList.add("my-3", "sm:my-6");
+    });
     images.forEach((img) => {
-      img.classList.add("w-full", "h-auto");
+      //w-full
+      img.classList.add("w-80", "h-auto", "mx-auto");
     });
     iframes.forEach((iframe) => {
       iframe.classList.add("w-full", "max-w-full");

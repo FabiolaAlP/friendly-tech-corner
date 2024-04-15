@@ -2,54 +2,104 @@
 import type { GetStaticPaths } from "astro";
 import Layout from "../../layouts/Layout.astro";
 import BlogPost from "../../components/BlogPost.astro";
-
 const { slug } = Astro.params;
-
 // let res = await fetch(import.meta.env.WP_URL + `?slug=${slug}`);
 // let [post] = await res.json();
 
-const headers = { "Content-Type": "application/json" };
-const POST = `{
-  post(id:"${slug}",idType: SLUG) {
-    slug
-    title
-    content
-  }
-}`;
-const getPost = async () => {
-  try {
-    const res = await fetch(import.meta.env.WP_GRAPHQL, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ query: POST }),
-    });
-    const resData = await res.json();
-    return resData?.data?.post ?? [];
-  } catch (error) {
-    console.error("Error fetching posts: ", error);
-  }
-};
-const post = await getPost();
+// const headers = { "Content-Type": "application/json" };
+// const POST = `{
+//   post(id:"${slug}",idType: SLUG) {
+//     slug
+//     title
+//     content
+//   }
+// }`;
+// const getPost = async () => {
+//   try {
+//     const res = await fetch(import.meta.env.WP_GRAPHQL, {
+//       method: "POST",
+//       headers,
+//       body: JSON.stringify({ query: POST }),
+//     });
+//     const resData = await res.json();
+//     return resData?.data?.post ?? [];
+//   } catch (error) {
+//     console.error("Error fetching posts: ", error);
+//   }
+// };
+// const post = await getPost();
 
 // The getStaticPaths() is required for static Astro sites.
 // If using SSR, you will not need this function.
 // export async function getStaticPaths() {
-//   let data = await fetch(import.meta.env.WP_URL);
-//   let posts = await data.json();
-
-//   return posts.map((post) => ({
+//   //   let data = await fetch(import.meta.env.WP_URL);
+//   //   let posts = await data.json();
+//   const headers = { "Content-Type": "application/json" };
+//   const POST = `{
+//   post(id:"${slug}",idType: SLUG) {
+//     slug
+//     title
+//     content
+//   }
+// }`;
+//   const res = await fetch(import.meta.env.WP_GRAPHQL, {
+//     method: "POST",
+//     headers,
+//     body: JSON.stringify({ query: POST }),
+//   });
+//   const resData = await res.json();
+//   return resData.posts.map((post) => ({
 //     params: { slug: post.slug },
 //     props: { post: post },
 //   }));
 // }
+export async function getStaticPaths() {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  const POST = `
+    query GET_POSTS {
+      posts {
+        nodes {
+          slug
+          title
+          content
+        }
+      }
+    }
+  `;
+
+  const res = await fetch(import.meta.env.WP_GRAPHQL, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      query: POST,
+    }),
+  });
+
+  if (!res.ok) {
+    console.error(await res.json());
+    return { paths: [], fallback: false };
+  }
+
+  const { data } = await res.json();
+
+  return data.posts.nodes.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
 ---
 
 <Layout title={post.title}>
   <BlogPost post={post} />
-  <!-- <article
+</Layout>
+<!-- <article
     class="mt-20 max-w-5xl mx-auto border border-gray-300 rounded-xl p-4 my-6"
   >
     <h1 class="text-md md:text-xl lg:text-2xl" set:html={post.title.rendered} />
     <Fragment set:html={post.content.rendered} />
   </article> -->
-</Layout>
