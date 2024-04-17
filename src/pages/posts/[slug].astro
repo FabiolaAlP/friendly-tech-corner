@@ -6,28 +6,28 @@ const { slug } = Astro.params;
 // let res = await fetch(import.meta.env.WP_URL + `?slug=${slug}`);
 // let [post] = await res.json();
 
-const headers = { "Content-Type": "application/json" };
-const POST = `{
-  post(id:"${slug}",idType: SLUG) {
-    slug
-    title
-    content
-  }
-}`;
-const getPost = async () => {
-  try {
-    const res = await fetch(import.meta.env.WP_GRAPHQL, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ query: POST }),
-    });
-    const resData = await res.json();
-    return resData?.data?.post ?? [];
-  } catch (error) {
-    console.error("Error fetching posts: ", error);
-  }
-};
-const post = await getPost();
+// const headers = { "Content-Type": "application/json" };
+// const POST = `{
+//   post(id:"${slug}",idType: SLUG) {
+//     slug
+//     title
+//     content
+//   }
+// }`;
+// const getPost = async () => {
+//   try {
+//     const res = await fetch(import.meta.env.WP_GRAPHQL, {
+//       method: "POST",
+//       headers,
+//       body: JSON.stringify({ query: POST }),
+//     });
+//     const resData = await res.json();
+//     return resData?.data?.post ?? [];
+//   } catch (error) {
+//     console.error("Error fetching posts: ", error);
+//   }
+// };
+// const post = await getPost();
 
 // The getStaticPaths() is required for static Astro sites.
 // If using SSR, you will not need this function.
@@ -53,45 +53,45 @@ const post = await getPost();
 //     props: { post: post },
 //   }));
 // }
-// export async function getStaticPaths() {
-//   const headers = {
-//     "Content-Type": "application/json",
-//   };
+export async function getStaticPaths() {
+  const headers = {
+    "Content-Type": "application/json",
+  };
 
-//   const POST = `
-//     query GET_POSTS {
-//       posts {
-//         nodes {
-//           slug
-//           title
-//           content
-//         }
-//       }
-//     }
-//   `;
+  const POST = `
+    query GET_POSTS {
+      posts {
+        nodes {
+          slug
+          title
+          content
+        }
+      }
+    }
+  `;
 
-//   const res = await fetch(import.meta.env.WP_GRAPHQL, {
-//     method: "POST",
-//     headers,
-//     body: JSON.stringify({
-//       query: POST,
-//     }),
-//   });
+  const res = await fetch(import.meta.env.URL_TEST, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      query: POST,
+    }),
+  });
 
-//   if (!res.ok) {
-//     console.error(await res.json());
-//     return { paths: [], fallback: false };
-//   }
+  if (!res.ok) {
+    console.error(await res.json());
+    return { paths: [], fallback: false };
+  }
 
-//   const { data } = await res.json();
+  const { data } = await res.json();
 
-//   return data.posts.nodes.map((post) => ({
-//     params: { slug: post.slug },
-//     props: { post },
-//   }));
-// }
+  return data.posts.nodes.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
 
-// const { post } = Astro.props;
+const { post } = Astro.props;
 ---
 
 <Layout title={post.title}>

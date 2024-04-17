@@ -31,7 +31,7 @@ const LATEST_POSTS = `{
   }`;
 const getPosts = async () => {
   try {
-    const res = await fetch(import.meta.env.WP_GRAPHQL, {
+    const res = await fetch(import.meta.env.URL_TEST, {
       method: "POST",
       headers,
       body: JSON.stringify({ query: LATEST_POSTS }),
