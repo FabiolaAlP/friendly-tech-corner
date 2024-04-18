@@ -1,10 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import BlogList from "../components/BlogList.astro";
+import { wpquery } from "../data/wordpress";
 
 const title = "Blog";
-
-const headers = { "Content-Type": "application/json" };
 const GET_ALL_POSTS = `{
   posts(where: {orderby: {field: DATE, order: DESC}}) {
     nodes {
@@ -27,22 +26,7 @@ const GET_ALL_POSTS = `{
       }
     }
   }`;
-const getPosts = async () => {
-  try {
-    const res = await fetch(import.meta.env.URL_TEST, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        query: GET_ALL_POSTS,
-      }),
-    });
-    const resData = await res.json();
-    return resData?.data?.posts?.nodes ?? [];
-  } catch (error) {
-    console.error("Error fetching posts: ", error);
-  }
-};
-const posts = await getPosts();
+const posts = await wpquery({ query: GET_ALL_POSTS });
 ---
 
 <Layout title={title}>
