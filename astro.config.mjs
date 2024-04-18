@@ -15,6 +15,6 @@ export default defineConfig({
   //   port: 80,
   // },
   env: {
-    WP_GRAPHQL: import.meta.env.WP_GRAPHQL,
+    URL_TEST: import.meta.env.URL_TEST,
   },
 });
