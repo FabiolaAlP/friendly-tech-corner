@@ -6,7 +6,7 @@ const mobileMenuHandler = () => {
   menu.classList.toggle("hidden");
 };
 const handleScroll = () => {
-  if (window.scrollY >= 300) {
+  if (window.scrollY >= 200) {
     scrollToTopBtn.classList.remove("hidden");
   } else {
     scrollToTopBtn.classList.add("hidden");

@@ -1,9 +1,7 @@
 ---
 const { prev, next, total, size, currentPage } = Astro.props;
 const totalPages = Math.ceil(total / size);
-console.log(totalPages);
 const pages = new Array(totalPages).fill(null).map((v, i) => i + 1);
-console.log(pages);
 ---
 
 <nav class="my-10 flex justify-center items-center" aria-label="Blog pages">

@@ -2,7 +2,6 @@
 import { format } from "date-fns";
 
 const { posts } = Astro.props;
-console.log(posts);
 const getTagName = (tags) => {
   if (tags.length === 0) {
     return `<span class="rounded-full border-gray-800 dark:border-gray-300 border p-2 dark:text-white">uncategorized</span>`;
