@@ -1,34 +1,47 @@
 ---
-interface Props {
-  currentPage: number;
-  totalPages: number;
-}
-
-const { currentPage, totalPages } = Astro.props;
+const { prev, next, total, size, currentPage } = Astro.props;
+const totalPages = Math.ceil(total / size);
+console.log(totalPages);
+const pages = new Array(totalPages).fill(null).map((v, i) => i + 1);
+console.log(pages);
 ---
 
-<nav aria-label="Page navigation">
-  <ul class="pagination">
-    <li class:list={["page-item", currentPage === 1 && "disabled"]}>
+<nav class="my-10 flex justify-center items-center" aria-label="Blog pages">
+  {
+    prev && (
       <a
-        href={currentPage > 1 ? `/posts/${currentPage - 1}` : "#"}
-        class="page-link">Previous</a
+        class=" bg-light-primary text-light-bg dark:bg-dark-primary dark:text-dark-bg-alt rounded-xl p-4"
+        href={prev}
       >
-    </li>
-    {
-      Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-        <li class:list={["page-item", currentPage === page && "active"]}>
-          <a href={`/posts/${page}`} class="page-link">
-            {page}
-          </a>
-        </li>
-      ))
-    }
-    <li class:list={["page-item", currentPage === totalPages && "disabled"]}>
+        Previous
+      </a>
+    )
+  }
+  {
+    pages.map((page) => (
       <a
-        href={currentPage < totalPages ? `/posts/${currentPage + 1}` : "#"}
-        class="page-link">Next</a
+        class={`hidden sm:block mx-2 bg-light-primary text-light-bg dark:bg-dark-primary dark:text-dark-bg-alt rounded-xl p-4 ${currentPage === page ? "font-bold underline" : ""}`}
+        href={page === 1 ? "/blog" : `/blog/${page}`}
       >
-    </li>
-  </ul>
+        {page}
+      </a>
+    ))
+  }
+  {
+    next && (
+      <a
+        class="bg-light-primary text-light-bg dark:bg-dark-primary dark:text-dark-bg-alt rounded-xl p-4"
+        href={next}
+      >
+        Next
+      </a>
+    )
+  }
+  {
+    (
+      <span class="mx-2">
+        Page {currentPage} of {totalPages}
+      </span>
+    )
+  }
 </nav>

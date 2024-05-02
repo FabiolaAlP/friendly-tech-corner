@@ -26,7 +26,7 @@ const LATEST_POSTS = `{
       }
     }
   }`;
-const posts = await wpquery({
+const { posts } = await wpquery({
   query: LATEST_POSTS,
 });
 ---

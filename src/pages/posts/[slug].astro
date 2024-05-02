@@ -2,9 +2,8 @@
 import type { GetStaticPaths } from "astro";
 import Layout from "../../layouts/Layout.astro";
 import BlogPost from "../../components/BlogPost.astro";
-import Pagination from "../../components/Pagination.astro";
 import { wpquery } from "../../data/wordpress";
-export async function getStaticPaths({ paginate }) {
+export async function getStaticPaths() {
   const POST = `
     query GET_POSTS {
       posts {
@@ -16,7 +15,7 @@ export async function getStaticPaths({ paginate }) {
       }
     }
   `;
-  const posts = await wpquery({ query: POST });
+  const { posts } = await wpquery({ query: POST });
 
   return posts.map((post) => ({
     params: { slug: post.slug },
@@ -29,12 +28,4 @@ const { post } = Astro.props;
 
 <Layout title={post.title}>
   <BlogPost post={post} />
-  <!-- <Pagination
-    page={page}
-    total={total}
-    prevUrl={prevUrl}
-    nextUrl={nextUrl}
-    prevText="Previous"
-    nextText="Next"
-  /> -->
 </Layout>

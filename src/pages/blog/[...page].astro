@@ -1,0 +1,58 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro";
+import BlogList from "../../components/BlogList.astro";
+import { wpquery } from "../../data/wordpress";
+import Pagination from "../../components/Pagination.astro";
+export async function getStaticPaths({ paginate }) {
+  const POSTS = `{
+  posts(where: {orderby: {field: DATE, order: DESC}}) {
+    nodes {
+      slug
+      title
+      author {
+        node {
+          name
+        }
+      }
+      date
+      excerpt
+      tags {
+        edges {
+          node {
+            name
+          }
+        }
+      }
+      }
+    }
+  }`;
+  const { posts } = await wpquery({ query: POSTS });
+  return paginate(
+    posts,
+    // posts.map((post) => ({ params: { slug: post.slug, props: { post } } })),
+    { pageSize: 5 }
+  );
+  //   return posts.map((post) => ({
+  //     params: { slug: post.slug },
+  //     props: { post },
+  //   }));
+}
+
+// const { posts } = Astro.props;
+const { posts, page } = Astro.props;
+const { data, url, currentPage, total, size } = page;
+const { prev, next } = url;
+console.log(page);
+---
+
+<Layout title={data.title}>
+  <BlogList posts={data} />
+  <Pagination
+    total={total}
+    size={size}
+    currentPage={currentPage}
+    prev={prev}
+    next={next}
+  />
+</Layout>
