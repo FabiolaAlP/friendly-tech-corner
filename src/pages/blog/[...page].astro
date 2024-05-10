@@ -28,15 +28,7 @@ export async function getStaticPaths({ paginate }) {
     }
   }`;
   const { posts } = await wpquery({ query: POSTS });
-  return paginate(
-    posts,
-    // posts.map((post) => ({ params: { slug: post.slug, props: { post } } })),
-    { pageSize: 5 }
-  );
-  //   return posts.map((post) => ({
-  //     params: { slug: post.slug },
-  //     props: { post },
-  //   }));
+  return paginate(posts, { pageSize: 5 });
 }
 
 // const { posts } = Astro.props;
