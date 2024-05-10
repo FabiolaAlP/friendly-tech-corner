@@ -30,8 +30,6 @@ export async function getStaticPaths({ paginate }) {
   const { posts } = await wpquery({ query: POSTS });
   return paginate(posts, { pageSize: 5 });
 }
-
-// const { posts } = Astro.props;
 const { posts, page } = Astro.props;
 const { data, url, currentPage, total, size } = page;
 const { prev, next } = url;
