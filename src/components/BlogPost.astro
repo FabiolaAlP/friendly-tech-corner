@@ -11,14 +11,14 @@ const { post } = Astro.props;
   />
   <!-- text-lg md:text-xl lg:text-2xl -->
   <section class="flex flex-col items-center justify-center p-4">
-    <!-- <div class="text-lg md:text-2xl mx-auto" set:html={post.content} /> -->
     <div
-      class="text-lg md:text-xl lg:text-2xl mx-auto"
       id="postContent"
+      class="text-lg md:text-xl lg:text-2xl mx-auto"
       set:html={post.content}
     />
   </section>
 </article>
+
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const postContentDiv = document.getElementById("postContent");

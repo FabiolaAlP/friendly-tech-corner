@@ -25,6 +25,7 @@ const getTagName = (tags) => {
             class="font-ibm hover:underline text-light-text dark:text-dark-text text-xl md:text-2xl lg:text-3xl"
             href={`/posts/${post.slug}/`}
             set:html={post.title}
+            data-astro-reload
           />
         </h2>
         <span
