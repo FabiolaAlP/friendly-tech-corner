@@ -16,9 +16,7 @@ export async function wpquery({ query, variables = {} }: WPGraphqlParams) {
   }
   const { data } = await res.json();
   const posts = data?.posts?.nodes ?? [];
-  const edges = data?.posts?.edges ?? [];
-  const pageInfo = data?.posts?.pageInfo ?? {};
 
-  return { posts, pageInfo, edges };
+  return { posts };
   // return data?.posts?.nodes ?? [];
 }
