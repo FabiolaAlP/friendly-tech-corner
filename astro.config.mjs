@@ -8,12 +8,6 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), react()],
-  // output: "hybrid",
-  // // adapter: netlify(),
-  // site: "https://friendlytechcorner.netlify.app",
-  // server: {
-  //   port: 80,
-  // },
   env: {
     URL_TEST: import.meta.env.URL_TEST,
   },
