@@ -35,11 +35,24 @@ const { post } = Astro.props;
       img.removeAttribute("style");
       img.className = "";
       // "max-w-sm",
-      img.classList.add("w-full", "h-auto", "mx-auto", "max-w-full");
+      img.classList.add(
+        "w-full",
+        "h-auto",
+        "mx-auto",
+        "max-w-full",
+        "rounded-lg",
+        "overflow-hidden"
+      );
     });
     iframes.forEach((iframe) => {
-      iframe.classList.add("w-full", "max-w-full", "h-auto");
-      // iframe.style.maxWidth = "100%";
+      // iframe.classList.add(
+      //   "w-full",
+      //   "sm:w-full",
+      //   "sm:h-full",
+      //   "max-w-full",
+      //   "h-auto"
+      // );
+      iframe.classList.add("w-full");
     });
   });
 </script>
