@@ -16,11 +16,13 @@ const getTagName = (tags) => {
 };
 ---
 
-<article class="mt-14 sm:mt-20 max-w-4xl">
+<!-- <article class="mt-14 sm:mt-20 max-w-4xl"> -->
+<article class="mt-14 sm:mt-20 max-w-full sm:max-w-4xl mx-auto px-4 sm:px-0">
   {
     posts.map((post) => (
-      <section class="container mx-auto shadow-lg bg-light-bg-alt text-light-text dark:bg-dark-bg-alt dark:text-dark-text rounded-xl p-4 my-10">
-        <h2 class="my-4">
+      // <section class="container mx-auto shadow-lg bg-light-bg-alt text-light-text dark:bg-dark-bg-alt dark:text-dark-text rounded-xl p-4 my-10">
+      <section class="shadow-lg bg-light-bg-alt text-light-text dark:bg-dark-bg-alt dark:text-dark-text rounded-xl p-4 my-6 sm:my-10">
+        <h2 class="my-4 text-lg sm:text-xl md:text-2xl lg:text-3xl">
           <a
             class="font-ibm hover:underline text-light-text dark:text-dark-text text-xl md:text-2xl lg:text-3xl"
             href={`/posts/${post.slug}/`}
@@ -37,7 +39,7 @@ const getTagName = (tags) => {
           set:html={format(post.date, "dd MMM yyyy")}
         />
         <div
-          class="my-5 text-light-text dark:text-dark-text"
+          class="my-5 text-light-text dark:text-dark-text break-words"
           set:html={post.excerpt}
         />
         <span

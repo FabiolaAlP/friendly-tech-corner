@@ -12,7 +12,7 @@ const { post } = Astro.props;
   <section class="flex flex-col items-center justify-center p-4">
     <div
       id="postContent"
-      class="text-lg md:text-xl lg:text-2xl mx-auto"
+      class="text-lg md:text-xl lg:text-2xl mx-auto overflow-hidden break-words max-w-full sm:max-w-4xl"
       set:html={post.content}
     />
   </section>
@@ -26,14 +26,19 @@ const { post } = Astro.props;
     const images = postContentDiv.querySelectorAll("img");
     const paragraphs = postContentDiv.querySelectorAll("p");
     paragraphs.forEach((p) => {
-      p.classList.add("my-3", "sm:my-6");
+      p.className = "";
+      p.classList.add("my-3", "sm:my-6", "text-pretty");
     });
     images.forEach((img) => {
       //w-full
-      img.classList.add("w-80", "h-auto", "mx-auto");
+      // img.classList.add("w-80", "h-auto", "mx-auto");
+      img.removeAttribute("style");
+      img.className = "";
+      // "max-w-sm",
+      img.classList.add("w-full", "h-auto", "mx-auto", "max-w-full");
     });
     iframes.forEach((iframe) => {
-      iframe.classList.add("w-full", "max-w-full");
+      iframe.classList.add("w-full", "max-w-full", "h-auto");
       // iframe.style.maxWidth = "100%";
     });
   });
