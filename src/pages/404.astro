@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+const title = "404 - Page Not Found";
+---
+
+<Layout title={title}>
+  <div
+    class="flex flex-col items-center justify-center text-center mt-20 bg-light-bg-alt text-light-text dark:bg-dark-bg-alt dark:text-dark-text shadow-lg p-4 rounded-xl"
+  >
+    <h1 class="text-3xl font-bold mb-4">Oops! Page Not Found</h1>
+    <p class="text-lg mb-6">
+      It looks like the page you're looking for doesn't exist.
+    </p>
+    <a
+      href="/"
+      class="bg-light-primary text-light-bg dark:bg-dark-primary dark:text-dark-bg-alt rounded-xl px-4 py-2 shadow-md ease-in-out duration-300 hover:-translate-y-1 focus:outline-none"
+    >
+      Go to Homepage
+    </a>
+  </div>
+</Layout>

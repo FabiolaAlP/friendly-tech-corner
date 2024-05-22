@@ -5,7 +5,7 @@ interface WPGraphqlParams {
 
 export async function wpquery({ query, variables = {} }: WPGraphqlParams) {
   const headers = { "Content-Type": "application/json" };
-  const res = await fetch(import.meta.env.FTC_URL, {
+  const res = await fetch(import.meta.env.URL_TEST, {
     method: "POST",
     headers,
     body: JSON.stringify({ query, variables }),
