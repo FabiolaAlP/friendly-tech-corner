@@ -25,6 +25,7 @@ const { post } = Astro.props;
     const iframes = postContentDiv.querySelectorAll("iframe");
     const images = postContentDiv.querySelectorAll("img");
     const paragraphs = postContentDiv.querySelectorAll("p");
+    const links = postContentDiv.querySelectorAll("a");
     paragraphs.forEach((p) => {
       p.className = "";
       p.classList.add("my-3", "sm:my-6", "text-pretty");
@@ -53,6 +54,9 @@ const { post } = Astro.props;
       //   "h-auto"
       // );
       iframe.classList.add("w-full");
+    });
+    links.forEach((link) => {
+      link.classList.add("underline");
     });
   });
 </script>
