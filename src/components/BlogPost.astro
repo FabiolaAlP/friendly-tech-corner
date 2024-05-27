@@ -26,16 +26,15 @@ const { post } = Astro.props;
     const images = postContentDiv.querySelectorAll("img");
     const paragraphs = postContentDiv.querySelectorAll("p");
     const links = postContentDiv.querySelectorAll("a");
+    const orderedList = postContentDiv.querySelectorAll("ol");
+    const listItems = postContentDiv.querySelectorAll("li");
     paragraphs.forEach((p) => {
       p.className = "";
       p.classList.add("my-3", "sm:my-6", "text-pretty");
     });
     images.forEach((img) => {
-      //w-full
-      // img.classList.add("w-80", "h-auto", "mx-auto");
       img.removeAttribute("style");
       img.className = "";
-      // "max-w-sm",
       img.classList.add(
         "w-full",
         "h-auto",
@@ -57,6 +56,13 @@ const { post } = Astro.props;
     });
     links.forEach((link) => {
       link.classList.add("underline");
+    });
+    listItems.forEach((item) => {
+      item.classList.add("my-3", "sm:my-6");
+    });
+    orderedList.forEach((list) => {
+      // list.classList.remove("padding");
+      list.classList.add("list-decimal");
     });
   });
 </script>
