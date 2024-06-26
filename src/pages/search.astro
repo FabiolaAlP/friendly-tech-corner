@@ -4,10 +4,10 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Search the Blog" showSearchBar={false}>
   <section
-    class="flex justify-center items-center flex-col p-4 mt-20 rounded-lg"
+    class="flex justify-center items-center flex-col p-4 mt-20 rounded-xl w-full sm:max-w-xl"
   >
     <div
-      class="w-full sm:max-w-xl p-4 border-2 border-light-primary rounded-lg form"
+      class="w-full p-4 border-2 border-light-primary form bg-light-bg-alt text-light-text dark:bg-dark-bg-alt dark:text-dark-text shadow-lg rounded-xl"
     >
       <div>
         <label class="font-bold block text-center py-2" for="search"
@@ -44,7 +44,11 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
 
-    <section class="w-full sm:max-w-xl p-4" aria-label="Search Results">
+    <section
+      class="w-full p-4 bg-light-bg-alt text-light-text dark:bg-dark-bg-alt dark:text-dark-text shadow-lg rounded-xl my-6 hidden"
+      aria-label="Search Results"
+      id="searchResultsContainer"
+    >
       <p class="font-ibm text-xl font-bold text-pretty" id="searchReadout"></p>
       <ul id="searchResults"></ul>
     </section>
@@ -54,7 +58,6 @@ import Layout from "../layouts/Layout.astro";
   //imports
   import DOMPurify from "dompurify";
   import Fuse from "fuse.js";
-  import { format } from "date-fns";
 
   let SEARCH_DATA;
   let FUSE_INSTANCE;
@@ -77,12 +80,14 @@ import Layout from "../layouts/Layout.astro";
       },
     ],
   };
-  // const SPINNER = `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-loader animate-spin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6l0 -3" /><path d="M16.25 7.75l2.15 -2.15" /><path d="M18 12l3 0" /><path d="M16.25 16.25l2.15 2.15" /><path d="M12 18l0 3" /><path d="M7.75 16.25l-2.15 2.15" /><path d="M6 12l-3 0" /><path d="M7.75 7.75l-2.15 -2.15" /></svg>`;
+  const SPINNER = `<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-loader animate-spin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6l0 -3" /><path d="M16.25 7.75l2.15 -2.15" /><path d="M18 12l3 0" /><path d="M16.25 16.25l2.15 2.15" /><path d="M12 18l0 3" /><path d="M7.75 16.25l-2.15 2.15" /><path d="M6 12l-3 0" /><path d="M7.75 7.75l-2.15 -2.15" /></svg>`;
 
   //selectors
   const search = document.querySelector("#search") as HTMLInputElement;
   const searchReadout = document.querySelector("#searchReadout");
   const resultsList = document.querySelector("#searchResults");
+  const resultsContainer = document.getElementById("searchResultsContainer");
+
   //functions
   function updateDocumentTitle(search) {
     document.title = search
@@ -91,6 +96,11 @@ import Layout from "../layouts/Layout.astro";
   }
   function updateSearchReadout(search) {
     searchReadout.textContent = search ? `Search results for "${search}"` : "";
+    if (search) {
+      resultsContainer.classList.remove("hidden");
+    } else {
+      resultsContainer.classList.add("hidden");
+    }
   }
   function updateSearchPageURL(search) {
     //current location
@@ -102,7 +112,6 @@ import Layout from "../layouts/Layout.astro";
     return results
       .map((result) => {
         const { slug, title, author, date, excerpt, tags } = result.item;
-        const dateAsDate = new Date(date);
         return `<li class="">
 								<a class="font-ibm hover:underline text-light-text dark:text-dark-text text-lg" href="/posts/${slug}/">${title}</a>
 							</li>`;
@@ -110,8 +119,11 @@ import Layout from "../layouts/Layout.astro";
       .join("");
   }
   async function fetchSearchResults(search) {
-    if (search.length === 0) return;
-    // resultsList.innerHTML = SPINNER;
+    if (search.length === 0) {
+      resultsContainer.classList.add("hidden");
+      return;
+    }
+    resultsList.innerHTML = SPINNER;
     if (!SEARCH_DATA) {
       try {
         const res = await fetch("/search.json");
@@ -134,6 +146,11 @@ import Layout from "../layouts/Layout.astro";
       searchResult.length > 0
         ? generateSearchList(searchResult)
         : "No results found...";
+    if (searchResult.length > 0) {
+      resultsContainer.classList.remove("hidden");
+    } else {
+      resultsContainer.classList.add("hidden");
+    }
   }
   //events
   window.addEventListener("DOMContentLoaded", () => {
