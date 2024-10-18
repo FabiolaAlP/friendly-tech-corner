@@ -6,7 +6,8 @@ export default defineConfig({
   integrations: [tailwind(), react(), icon({
     include: {
       'skill-icons': ["*"],
-      'simple-icons': ["expo"]
+      'simple-icons': ["expo"],
+      'mdi': ["sql-query"]
     },
   }),],
   env: {

@@ -1,49 +1,55 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import TechStack from "../components/TechStack.astro";
+import { Icon } from "astro-icon/components";
 const title = "About";
 ---
 
 <Layout title={title} showSearchBar={false}>
   <section
-    class="max-w-4xl mx-auto mt-20 bg-light-bg-alt text-light-text dark:bg-dark-bg-alt dark:text-dark-text shadow-lg p-4 rounded-xl"
+    class="max-w-4xl mx-auto mt-20 bg-light-bg-alt text-light-text dark:bg-dark-bg-alt dark:text-dark-text shadow-lg p-2 sm:p-4 rounded-xl min-w-0"
   >
     <h2
-      class="font-ibm font-bold text-2xl md:text-3xl text-light-primary dark:text-dark-primary text-center"
+      class="font-ibm font-bold text-xl sm:text-2xl md:text-3xl text-light-primary dark:text-dark-primary text-center"
     >
       About
     </h2>
-    <p class="text-pretty text-lg">
+    <p class="text-pretty text-base sm:text-lg break-words">
       Hi, I'm Fabi a software developer, my goal is to learn something new
       everyday. The purpose of this blog is to share with other people tutorials
       about different tools. As I learn more, I'll update this blog. Thanks for
       stoping by 👋🏼.
     </p>
-    <span class="block sm:flex">
-      You can check my github profile here:
-      <a
-        class="text-left"
-        href=" https://github.com/FabiolaAlP"
-        target="_blank"
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
+      <span class="text-base sm:text-lg"
+        >You can check my GitHub and Linkedin profile here:</span
       >
-        <svg
-          class="hover:translate-y-1 mx-0 sm:mx-1"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="icon icon-tabler icons-tabler-outline icon-tabler-brand-github"
-          ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
-            d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"
-          ></path></svg
+      <div class="flex gap-4 mt-2 sm:mt-0">
+        <a href="https://github.com/FabiolaAlP" target="_blank">
+          <Icon
+            name="skill-icons:github-dark"
+            class="w-10 h-10 hover:animate-pulse"
+          />
+        </a>
+        <a
+          href="http://www.linkedin.com/in/fabiola-alvarado-perez"
+          target="_blank"
         >
-      </a>
-    </span>
+          <Icon
+            name="skill-icons:linkedin"
+            class="w-10 h-10 hover:animate-pulse"
+          />
+        </a>
+      </div>
+    </div>
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
+      <span class="text-base sm:text-lg">Currently learning:</span>
+      <div class="flex gap-4 mt-2 sm:mt-0">
+        <Icon name="skill-icons:astro" class="w-10 h-10" />
+        <Icon name="logos:react-query-icon" class="w-10 h-10" />
+        <Icon name="skill-icons:vitest-light" class="w-10 h-10" />
+      </div>
+    </div>
   </section>
   <TechStack />
 </Layout>
