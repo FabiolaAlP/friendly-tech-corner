@@ -1,3 +1,5 @@
+import { transform } from '@babel/core';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
@@ -21,6 +23,16 @@ export default {
         "dark-bg-alt": "#2F2E2E",
         "dark-text": "#F2E9E4",
       },
+      keyframes: {
+        "infinite-scroll": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(calc(-50% - 20px))" }
+          // "100%": { transform: "translateX(-100%)" }
+        }
+      },
+      animation: {
+        "infinite-scroll": "infinite-scroll 40s linear infinite"
+      }
     },
   },
 };
