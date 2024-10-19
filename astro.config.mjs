@@ -7,7 +7,8 @@ export default defineConfig({
     include: {
       'skill-icons': ["*"],
       'simple-icons': ["expo"],
-      'mdi': ["sql-query"]
+      'mdi': ["sql-query"],
+      "solar": ["link-circle-bold", "code-square-bold"]
     },
   }),],
   env: {
