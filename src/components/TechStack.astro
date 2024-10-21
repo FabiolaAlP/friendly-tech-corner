@@ -37,7 +37,10 @@ const technologies = [
     Tech Stack
   </h3>
   <div class="overflow-hidden flex">
-    <ul class="flex gap-10 py-4 animate-infinite-scroll">
+    <ul
+      class="flex gap-10 py-4 animate-infinite-scroll"
+      style="will-change:transform"
+    >
       {
         [...technologies, ...technologies].map((tech) => (
           <li class="flex flex-col items-center gap-2">
